@@ -5,3 +5,6 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+recipe = Recipe.new(title: "Eggplant Parmesan", chef: "Irene", ingredients: "Eggplant and parmesan", directions: "Put them in the oven", prep_time: 20)
+recipe.save
