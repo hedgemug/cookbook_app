@@ -22,4 +22,35 @@ class RecipesController < ApplicationController
     render json: recipe.as_json #hash of recipe data
   end
 
+  def update
+    # find a recipe by it's ID, and update it
+    recipe = Recipe.find_by(id: params[:id])
+    recipe.update(
+      title: params[:title],
+      chef: params[:chef]
+    ) 
+    render json: recipe.as_json
+  end
+
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

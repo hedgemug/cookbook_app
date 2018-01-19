@@ -6,6 +6,7 @@ puts "Welcome to the Recipe app! Select an option:"
 puts "[1] See all recipes"
 puts "[2] See one recipe"
 puts "[3] Create a recipe"
+puts "[4] Update a recipe"
 
 input_option = gets.chomp
 
@@ -34,8 +35,39 @@ elsif input_option == "3"
   response = Unirest.post("http://localhost:3000/recipes", parameters: params)
   recipe = response.body
   puts JSON.pretty_generate(recipe)
+elsif input_option == "4"
+  params = {}
+  puts "Enter the ID of the recipe to update:"
+  input_id = gets.chomp
+  puts "Update the recipe title: "
+  params["title"] = gets.chomp
+  puts "Update the recipe chef: "
+  params["chef"] = gets.chomp
+  response = Unirest.patch("http://localhost:3000/recipes/#{input_id}", parameters: params)
+  updated_recipe = response.body
+  puts JSON.pretty_generate(updated_recipe)
 end
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
