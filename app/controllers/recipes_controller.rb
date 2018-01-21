@@ -26,10 +26,16 @@ class RecipesController < ApplicationController
     # find a recipe by it's ID, and update it
     recipe = Recipe.find_by(id: params[:id])
     recipe.update(
-      title: params[:title],
-      chef: params[:chef]
+      title: params[:title] || recipe.title,
+      chef: params[:chef] || recipe.chef
     ) 
     render json: recipe.as_json
+  end
+
+  def destroy
+    recipe = Recipe.find_by(id: params[:id])
+    recipe.destroy
+    render json: {message: "Recipe successfully destroyed!"}
   end
 
 end
