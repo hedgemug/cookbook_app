@@ -4,6 +4,7 @@ system "clear"
 
 puts "Welcome to the Recipe app! Select an option:"
 puts "[1] See all recipes"
+puts "[1.5] Search recipes by title"
 puts "[2] See one recipe"
 puts "[3] Create a recipe"
 puts "[4] Update a recipe"
@@ -13,6 +14,13 @@ input_option = gets.chomp
 
 if input_option == "1"
   response = Unirest.get("http://localhost:3000/recipes")
+  recipes = response.body
+  puts JSON.pretty_generate(recipes)
+elsif input_option == "1.5"
+  puts "Enter search term: "
+  search_term = gets.chomp
+  puts "Here are the matching recipes: "
+  response = Unirest.get("http://localhost:3000/recipes?search=#{search_term}")
   recipes = response.body
   puts JSON.pretty_generate(recipes)
 elsif input_option == "2"
