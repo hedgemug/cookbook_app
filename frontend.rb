@@ -9,6 +9,7 @@ puts "[2] See one recipe"
 puts "[3] Create a recipe"
 puts "[4] Update a recipe"
 puts "[5] DELETE A RECIPE! (CAREFUL!)"
+puts "[6] Signup (create a user)"
 
 input_option = gets.chomp
 
@@ -66,6 +67,19 @@ elsif input_option == "5"
   puts "Enter the id of the recipe to destroy forever: "
   input_id = gets.chomp
   response = Unirest.delete("http://localhost:3000/recipes/#{input_id}") 
+  puts JSON.pretty_generate(response.body)
+elsif input_option == "6"
+  puts "Signup!"
+  params = {}
+  puts "First name: "
+  params[:first_name] = gets.chomp
+  puts "Last name: "
+  params[:last_name] = gets.chomp
+  puts "Email: "
+  params[:email] = gets.chomp
+  puts "Password: "
+  params[:password] = gets.chomp
+  response = Unirest.post("http://localhost:3000/users", parameters: params)
   puts JSON.pretty_generate(response.body)
 end
     
