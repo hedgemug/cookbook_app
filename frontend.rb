@@ -10,6 +10,8 @@ puts "[3] Create a recipe"
 puts "[4] Update a recipe"
 puts "[5] DELETE A RECIPE! (CAREFUL!)"
 puts "[6] Signup (create a user)"
+puts "[7] Login (create a JSON web token)"
+puts "[8] Logout (erase a JSON web token)"
 
 input_option = gets.chomp
 
@@ -81,6 +83,20 @@ elsif input_option == "6"
   params[:password] = gets.chomp
   response = Unirest.post("http://localhost:3000/users", parameters: params)
   puts JSON.pretty_generate(response.body)
+elsif input_option == "7"
+  puts "Email: "
+  input_email = gets.chomp
+  puts "Password: "
+  input_password = gets.chomp
+  response = Unirest.post("http://localhost:3000/user_token", parameters: {auth: {email: input_email, password: input_password}})
+  puts JSON.pretty_generate(response.body)
+  # Save the JSON web token from the response
+  jwt = response.body["jwt"]
+  # Include the jwt in the headers of any future web requests
+  Unirest.default_header("Authorization", "Bearer #{jwt}")
+elsif input_option == "8"
+  jwt = ""
+  Unirest.clear_default_headers()
 end
     
 
