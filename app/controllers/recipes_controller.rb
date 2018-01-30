@@ -21,10 +21,11 @@ class RecipesController < ApplicationController
     #make a new recipe and add to the database
     recipe = Recipe.new(
       title: params[:title], 
-      chef: params[:chef], 
       ingredients: params[:ingredients], 
       directions: params[:directions], 
-      prep_time: params[:prep_time])
+      prep_time: params[:prep_time],
+      user_id: current_user.id
+    )
     recipe.save
     render json: recipe.as_json #hash of recipe data
   end
@@ -35,7 +36,7 @@ class RecipesController < ApplicationController
     recipe.update(
       title: params[:title] || recipe.title,
       chef: params[:chef] || recipe.chef
-    ) 
+    )  
     render json: recipe.as_json
   end
 

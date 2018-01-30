@@ -36,8 +36,6 @@ elsif input_option == "3"
   params = {}
   puts "Enter a recipe title: "
   params["title"] = gets.chomp
-  puts "Enter a recipe chef: "
-  params["chef"] = gets.chomp
   puts "Enter a recipe ingredients: "
   params["ingredients"] = gets.chomp
   puts "Enter a recipe directions: "
@@ -45,8 +43,9 @@ elsif input_option == "3"
   puts "Enter a recipe prep time: "
   params["prep_time"] = gets.chomp
   response = Unirest.post("http://localhost:3000/recipes", parameters: params)
-  recipe = response.body
-  puts JSON.pretty_generate(recipe)
+  puts response.headers
+  # recipe = response.body
+  # puts JSON.pretty_generate(recipe)
 elsif input_option == "4"
   params = {}
   puts "Enter the ID of the recipe to update:"
