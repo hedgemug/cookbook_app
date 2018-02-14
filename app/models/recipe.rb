@@ -32,7 +32,8 @@ class Recipe < ApplicationRecord
       ingredients: ingredients_list,
       directions: directions_list,
       created_at: friendly_created_at,
-      prep_time: friendly_prep_time
+      prep_time: friendly_prep_time,
+      image: image
     }
   end
 
