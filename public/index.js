@@ -3,7 +3,7 @@
 var recipeTemplate = document.querySelector("#recipe-card");
 var recipeRow = document.querySelector(".row");
 
-axios.get("http://localhost:3000/recipes").then(function(response) {
+axios.get("https://pacific-sands-11450.herokuapp.com/recipes").then(function(response) {
   var recipes = response.data; //array or recipe data
   console.log(response.data);
 
