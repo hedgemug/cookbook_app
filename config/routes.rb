@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  post '/user_token' => 'user_token#create'
+  
   get "/recipes" => "recipes#index"
   get "/recipes/:id" => "recipes#show"
   post "/recipes" => "recipes#create"
@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   delete "/recipes/:id" => "recipes#destroy"
 
   post "/users" => "users#create"
+  post '/user_token' => 'user_token#create'
 end
