@@ -86,20 +86,9 @@ var RecipesIndexPage = {
 
     axios.get("http://localhost:3000/recipes").then(function(response) {
 
-      var recipeTemplate = document.querySelector("#recipe-index-page");
-      var recipeRow = document.querySelector(".row");
-
-      var recipes = response.data; //array or recipe data
+      this.recipes = response.data; //array or recipe data
       console.log(response.data);
 
-      recipes.forEach(function(recipe){
-        var recipeCard = recipeTemplate.content.cloneNode(true);
-        recipeCard.querySelector(".card-title").innerText = recipe.title;
-        recipeCard.querySelector(".card-img-top").src = recipe.image;
-        recipeCard.querySelector(".ingredients").innerText = recipe.ingredients;
-        recipeCard.querySelector(".directions").innerText = recipe.directions;
-        recipeRow.appendChild(recipeCard);
-      })
     }.bind(this));
   }
 };
