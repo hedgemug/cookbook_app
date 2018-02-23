@@ -24,10 +24,14 @@ class RecipesController < ApplicationController
       ingredients: params[:ingredients], 
       directions: params[:directions], 
       prep_time: params[:prep_time],
+      image: params[:image],
       user_id: current_user.id
     )
-    recipe.save
-    render json: recipe.as_json #hash of recipe data
+    if recipe.save
+      render json: recipe.as_json #hash of recipe data
+    else
+      render json: {errors: recipe.errors.full_messages}, status: 422
+    end
   end
 
   def update

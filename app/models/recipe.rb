@@ -3,6 +3,7 @@ class Recipe < ApplicationRecord
   belongs_to :user
   has_many :category_recipes
   has_many :categories, through: :category_recipes
+  validates :title, presence: true
 
   def friendly_prep_time
     hours = prep_time / 60

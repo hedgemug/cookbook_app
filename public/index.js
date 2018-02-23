@@ -83,7 +83,6 @@ var RecipesIndexPage = {
     };
   },
   created: function() {
-
     axios.get("http://localhost:3000/recipes").then(function(response) {
 
       this.recipes = response.data; //array or recipe data
@@ -101,6 +100,7 @@ var RecipesNewPage = {
       ingredients: "",
       prep_time: "",
       directions: "",
+      image: "",
       errors: []
     };
   },
@@ -110,7 +110,8 @@ var RecipesNewPage = {
         title: this.title,
         ingredients: this.ingredients,
         prep_time: this.prep_time,
-        directions: this.directions
+        directions: this.directions,
+        image: this.image
       };
       axios
         .post("/recipes", params)
@@ -126,13 +127,29 @@ var RecipesNewPage = {
   }
 };
 
+var RecipesShowPage = {
+  template: "#recipes-show-page",
+  data: function() {
+    return {
+      recipe: {}
+    };
+  },
+  created: function() {
+    axios.get("/recipes/" + this.$route.params.id).then(function(response) {
+      console.log(response.data);
+      this.recipe = response.data;
+    }.bind(this));
+  }
+}
+
 var router = new VueRouter({
   routes: [
    { path: "/", component: RecipesIndexPage },
    { path: "/signup", component: SignupPage },
    { path: "/login", component: LoginPage },
    { path: "/logout", component: LogoutPage },
-   { path: "/recipes/new", component: RecipesNewPage }
+   { path: "/recipes/new", component: RecipesNewPage },
+   { path: "/recipes/:id", component: RecipesShowPage }
   ],
   scrollBehavior: function(to, from, savedPosition) {
     return { x: 0, y: 0 };
