@@ -79,7 +79,8 @@ var RecipesIndexPage = {
   template: "#recipe-index-page",
   data: function() {
     return {
-      recipes: []
+      recipes: [],
+      currentRecipe: {}
     };
   },
   created: function() {
@@ -89,6 +90,12 @@ var RecipesIndexPage = {
       console.log(response.data);
 
     }.bind(this));
+  },
+  methods: {
+    setCurrentRecipe: function(recipe) {
+      this.currentRecipe = recipe;
+      console.log(this.currentRecipe);
+    }
   }
 };
 
