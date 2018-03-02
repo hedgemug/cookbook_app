@@ -1,4 +1,4 @@
-class RecipesController < ApplicationController
+class V1::RecipesController < ApplicationController
 
   def index
     recipes = Recipe.all.order(id: :asc)

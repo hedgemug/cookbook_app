@@ -5,6 +5,13 @@ class Recipe < ApplicationRecord
   has_many :categories, through: :category_recipes
   validates :title, presence: true
 
+  has_attached_file :image
+    
+  validates_attachment :image,
+    content_type: {
+    content_type: ["image/jpeg", "image/gif", "image/png"]
+  }
+
   def friendly_prep_time
     hours = prep_time / 60
     minutes = prep_time % 60

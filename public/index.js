@@ -84,7 +84,7 @@ var RecipesIndexPage = {
     };
   },
   created: function() {
-    axios.get("http://localhost:3000/recipes").then(function(response) {
+    axios.get("http://localhost:3000/v1/recipes").then(function(response) {
 
       this.recipes = response.data; //array or recipe data
       console.log(response.data);
@@ -112,6 +112,27 @@ var RecipesNewPage = {
     };
   },
   methods: {
+    uploadFile: function(event) {
+      if (event.target.files.length > 0) {
+        var formData = new FormData();
+        formData.append("title", this.title);
+        formData.append("ingredients", this.ingredients);
+        formData.append("prep_time", this.prep_time);
+        formData.append("directions", this.directions);
+        formData.append("image", event.target.files[0]);
+
+        axios
+          .post("/v1/recipes", formData)
+          .then(function(response) {
+            console.log(response);
+            this.title = "";
+            this.ingredients = "";
+            this.prep_time = "";
+            this.directions = "";
+            event.target.value = "";
+          });
+        }
+      },
     submit: function() {
       var params = {
         title: this.title,
@@ -121,7 +142,7 @@ var RecipesNewPage = {
         image: this.image
       };
       axios
-        .post("/recipes", params)
+        .post("/v1/recipes", params)
         .then(function(response) {
           router.push("/");
         })
@@ -147,7 +168,7 @@ var RecipesEditPage = {
     };
   },
   created: function() {
-    axios.get("/recipes/" + this.$route.params.id).then(
+    axios.get("/v1/recipes/" + this.$route.params.id).then(
       function(response) {
         this.title = response.data.title;
         this.prep_time = response.data.prep_time;
@@ -167,7 +188,7 @@ var RecipesEditPage = {
         image: this.image
       };
       axios
-        .patch("/recipes/" + this.$route.params.id, params)
+        .patch("/v1/recipes/" + this.$route.params.id, params)
         .then(function(response) {
           router.push("/");
         })
@@ -189,7 +210,7 @@ var RecipesShowPage = {
     };
   },
   created: function() {
-    axios.get("/recipes/" + this.$route.params.id).then(function(response) {
+    axios.get("/v1/recipes/" + this.$route.params.id).then(function(response) {
       console.log(response.data);
       this.recipe = response.data;
     }.bind(this));
